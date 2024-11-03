@@ -1,5 +1,11 @@
 #!/bin/bash
 
+UBUNTU_VERSION=$(lsb_release -rs)
+if [[ "$UBUNTU_VERSION" != "22.04" ]]; then
+    whiptail --title "Incompatible Version" --msgbox "This installer is compatible only with Ubuntu 22.04. Your version is $UBUNTU_VERSION. Installation may not work as expected." 10 50
+    exit 1
+fi
+
 # Function to prompt for sudo password
 ask_for_sudo() {
     while true; do
