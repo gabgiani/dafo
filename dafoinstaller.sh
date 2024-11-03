@@ -1,58 +1,3 @@
-#!/bin/bash
-
-UBUNTU_VERSION=$(lsb_release -rs)
-if [[ "$UBUNTU_VERSION" != "22.04" ]]; then
-    whiptail --title "Incompatible Version" --msgbox "This installer is compatible only with Ubuntu 22.04. Your version is $UBUNTU_VERSION. Installation may not work as expected." 10 50
-    exit 1
-fi
-
-# Function to prompt for sudo password
-ask_for_sudo() {
-    while true; do
-        SUDO_PASS=$(whiptail --title "Root Authentication required" --passwordbox "Enter your sudo password" 10 50 --cancel-button "Exit" 3>&1 1>&2 2>&3)
-
-        if [ $? -ne 0 ]; then
-            echo "Installation cancelled by user."
-            exit 1
-        fi
-
-        # Check if the entered password is correct
-        echo $SUDO_PASS | sudo -Sv 2>/dev/null
-        if [ $? -eq 0 ]; then
-            break
-        else
-            whiptail --title "Authentication failed" --msgbox "Incorrect password, please try again." 10 50
-        fi
-    done
-}
-
-# Function to display progress updates
-update_progress() {
-    while read -r line; do
-        IFS=':' read -r progress message <<< "$line"
-        echo "XXX"
-        echo "$progress"
-        echo "$message"
-        echo "DAFO AI. www.dafo.ai"
-        echo "XXX"
-    done | whiptail --gauge "Please wait while the installation is in progress..." 8 50 0 --title "DAFO AI - Visit our webpage: www.dafo.ai"
-}
-
-# Welcome message
-whiptail --title "Installer" --msgbox "Welcome to the installation wizard for DAFO AI - The Guidance System for the Operators!" 10 50
-
-# Ask for the sudo password
-ask_for_sudo
-
-# Ask for the virtual environment directory name
-ENV_DIR=$(whiptail --inputbox "Enter the folder name to install the DAFO App: " 10 60 "dafo" 3>&1 1>&2 2>&3)
-
-# Check if the user pressed cancel
-if [ $? -ne 0 ]; then
-    echo "Installation cancelled."
-    exit 1
-fi
-
 # Ensure the system folder exists in the home directory
 INSTALL_PATH="$HOME/$ENV_DIR"
 SYSTEM_DIR="$INSTALL_PATH/system"
@@ -71,7 +16,11 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-echo "5:Reading and downloading specified file..." >&3
+# Copy version.txt to version_local.txt
+echo "5:Updating local version file..." >&3
+cp $VERSION_FILE "$SYSTEM_DIR/version_local.txt"
+
+echo "8:Reading and downloading specified file..." >&3
 DOWNLOAD_URL=$(cat $VERSION_FILE)
 
 if [ -z "$DOWNLOAD_URL" ]; then
@@ -79,7 +28,7 @@ if [ -z "$DOWNLOAD_URL" ]; then
     exit 1
 fi
 
-wget -P $SYSTEM_DIR $DOWNLOAD_URL >/dev/null 2>&1
+wget -q -P $SYSTEM_DIR $DOWNLOAD_URL >/dev/null 2>&1
 
 if [ $? -ne 0 ]; then
     echo "Failed to download the file from $DOWNLOAD_URL" >&3
@@ -180,3 +129,4 @@ exec 3>&-
 
 # Completion message
 whiptail --title "Installation Complete" --msgbox "DAFO AI has been successfully installed in the virtual environment '$INSTALL_PATH'." 10 50
+
