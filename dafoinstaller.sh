@@ -133,6 +133,7 @@ source $INSTALL_PATH/bin/activate
 
 echo "28:Installing GUI...." >&3
 pip install -U packaging ttkthemes customtkinter >/dev/null 2>&1
+pip install -U reportlab qrcode >/dev/null 2>&1
 
 echo "32:Installing Computer Vision Libraries.." >&3
 pip install -U opencv-contrib-python pyrealsense2 >/dev/null 2>&1
