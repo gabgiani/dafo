@@ -163,7 +163,10 @@ fi
 pip install -U tensorflow_hub >/dev/null 2>&1
 
 echo "52:Installing AI Libraries...." >&3
-pip install -U tensorflowjs >/dev/null 2>&1
+pip install -U tensorflowjs==4.14 >/dev/null 2>&1
+pip install -U tensorflow-decision-forests==1.8.1 >/dev/null 2>&1
+pip install -U jax==0.4.21 /dev/null 2>&1
+pip install -U jaxlib==0.4.21 /dev/null 2>&1
 pip install -U torch==2.1.2 torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu121 >/dev/null 2>&1
 pip install -U ultralytics >/dev/null 2>&1
 pip install -U googletrans >/dev/null 2>&1
