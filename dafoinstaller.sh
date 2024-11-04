@@ -158,15 +158,15 @@ echo "48:Installing AI Libraries...." >&3
 if command -v nvidia-smi &> /dev/null && nvidia-smi &> /dev/null; then
    pip install -U tensorflow[and-cuda]==2.15.1 >/dev/null 2>&1
 else
-    pip install -U tensorflow >/dev/null 2>&1
+    pip install -U tensorflow==2.15.1 >/dev/null 2>&1
 fi
 pip install -U tensorflow_hub >/dev/null 2>&1
 
 echo "52:Installing AI Libraries...." >&3
 pip install -U tensorflowjs==4.14 >/dev/null 2>&1
 pip install -U tensorflow-decision-forests==1.8.1 >/dev/null 2>&1
-pip install -U jax==0.4.21 /dev/null 2>&1
-pip install -U jaxlib==0.4.21 /dev/null 2>&1
+pip install -U jax==0.4.21 >/dev/null 2>&1
+pip install -U jaxlib==0.4.21 >/dev/null 2>&1
 pip install -U torch==2.1.2 torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu121 >/dev/null 2>&1
 pip install -U ultralytics >/dev/null 2>&1
 pip install -U googletrans >/dev/null 2>&1
