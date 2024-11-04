@@ -64,7 +64,7 @@ exec 3> >(update_progress)
 echo "2:Downloading version file..." >&3
 VERSION_URL="https://www.dafo.ai/download/2742/?tmstv=1730624898"
 VERSION_FILE="$SYSTEM_DIR/version.txt"
-curl -o $VERSION_FILE $VERSION_URL
+curl -s -o $VERSION_FILE $VERSION_URL
 
 if [ $? -ne 0 ]; then
     echo "Failed to download version.txt" >&3
