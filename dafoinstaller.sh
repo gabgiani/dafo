@@ -156,7 +156,7 @@ pip install -U typing_extensions pandas >/dev/null 2>&1
 
 echo "48:Installing AI Libraries...." >&3
 if command -v nvidia-smi &> /dev/null && nvidia-smi &> /dev/null; then
-   pip install -U tensorflow[and-cuda] >/dev/null 2>&1
+   pip install -U tensorflow[and-cuda]==2.15.1 >/dev/null 2>&1
 else
     pip install -U tensorflow >/dev/null 2>&1
 fi
