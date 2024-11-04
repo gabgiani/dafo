@@ -97,7 +97,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "File downloaded and unzipped successfully from $DOWNLOAD_URL" >&3
-
+rm $ZIP_FILE >/dev/null 2>&1
 # Create a .desktop file for launching the app
 echo "60:Creating application launcher..." >&3
 DESKTOP_FILE="$HOME/.local/share/applications/dafo.desktop"
