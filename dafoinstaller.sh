@@ -57,7 +57,7 @@ fi
 INSTALL_PATH="$HOME/$ENV_DIR"
 SYSTEM_DIR="$INSTALL_PATH/system"
 mkdir -p $SYSTEM_DIR
-
+mkdir -p $SYSTEM_DIR/log
 exec 3> >(update_progress)
 
 # Download and process version.txt
